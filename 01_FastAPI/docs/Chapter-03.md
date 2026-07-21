@@ -70,57 +70,10 @@ The client starts the conversation. The server sends the response.
 
 Here is the full picture for a typical production AI application:
 
-```text
-                           CLIENT SIDE
-┌────────────────────────────────────────────────────┐
-│                                                    │
-│  Browser / Mobile App / Python Client              │
-│                                                    │
-└────────────────────────────────────────────────────┘
-                    │
-                    │ HTTP / HTTPS Request
-                    ▼
-══════════════════════════════════════════════════════════════
-                    Internet
-══════════════════════════════════════════════════════════════
-                    │
-                    ▼
-                    SERVER SIDE
+<p align="left">
+<img src="img/chaper3_01.png" width="600" height="800">
+</p>
 
-            ┌──────────────────────────┐
-            │        API Layer         │
-            │   (FastAPI Endpoints)    │
-            └──────────────────────────┘
-                      │
-                      ▼
-            ┌──────────────────────────┐
-            │     AI Application       │
-            │ Validation               │
-            │ Business Logic           │
-            │ Pre/Post Processing      │
-            └──────────────────────────┘
-                      │
-                      ▼
-            ┌──────────────────────────┐
-            │        AI Model          │
-            │ Object Detection         │
-            │ OCR                      │
-            │ Speech Recognition       │
-            └──────────────────────────┘
-                      │
-                      │ Prediction
-                      ▼
-            ┌──────────────────────────┐
-            │     HTTP Response        │
-            └──────────────────────────┘
-                      │
-══════════════════════════════════════════════════════════════
-                    Internet
-══════════════════════════════════════════════════════════════
-                      │
-                      ▼
-              Browser Displays Result
-```
 
 The important detail is that the **API layer** receives the request first. The model is only called after the application validates and prepares the input.
 
@@ -256,6 +209,10 @@ HTTPS is like putting that message inside a sealed envelope.
 > **Simple analogy**
 >
 > HTTP is like a postcard. HTTPS is like a sealed envelope.
+
+<p align="left">
+<img src="img/chaper3_02.png" width="800" height="600">
+</p>
 
 ### HTTP Flow
 
