@@ -66,6 +66,64 @@ The client starts the conversation. The server sends the response.
 >
 > Request -> Processing -> Response
 
+## End-to-End AI Request Flow
+
+Here is the full picture for a typical production AI application:
+
+```text
+                           CLIENT SIDE
+┌────────────────────────────────────────────────────┐
+│                                                    │
+│  Browser / Mobile App / Python Client              │
+│                                                    │
+└────────────────────────────────────────────────────┘
+                    │
+                    │ HTTP / HTTPS Request
+                    ▼
+══════════════════════════════════════════════════════════════
+                    Internet
+══════════════════════════════════════════════════════════════
+                    │
+                    ▼
+                    SERVER SIDE
+
+            ┌──────────────────────────┐
+            │        API Layer         │
+            │   (FastAPI Endpoints)    │
+            └──────────────────────────┘
+                      │
+                      ▼
+            ┌──────────────────────────┐
+            │     AI Application       │
+            │ Validation               │
+            │ Business Logic           │
+            │ Pre/Post Processing      │
+            └──────────────────────────┘
+                      │
+                      ▼
+            ┌──────────────────────────┐
+            │        AI Model          │
+            │ Object Detection         │
+            │ OCR                      │
+            │ Speech Recognition       │
+            └──────────────────────────┘
+                      │
+                      │ Prediction
+                      ▼
+            ┌──────────────────────────┐
+            │     HTTP Response        │
+            └──────────────────────────┘
+                      │
+══════════════════════════════════════════════════════════════
+                    Internet
+══════════════════════════════════════════════════════════════
+                      │
+                      ▼
+              Browser Displays Result
+```
+
+The important detail is that the **API layer** receives the request first. The model is only called after the application validates and prepares the input.
+
 ## What Is Inside an HTTP Request?
 
 An HTTP request is not just "some data." It has a structure.
