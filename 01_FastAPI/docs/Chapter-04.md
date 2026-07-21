@@ -439,64 +439,44 @@ What each part means:
 
 AI inference usually uses `POST` because the client needs to send input data to the server.
 
-
 ## What Is CRUD?
 
 When working with APIs, you'll frequently hear the term **CRUD**.
 
-CRUD is an acronym for the four basic operations that most applications perform on data:
+CRUD represents the four basic operations applications perform on resources:
 
-| CRUD | Meaning | Example |
-| --- | --- | --- |
-| **Create** | Add new data | Create a new model configuration |
-| **Read** | Retrieve existing data | Get model details |
-| **Update** | Modify existing data | Change model settings |
-| **Delete** | Remove existing data | Delete a model |
+* **Create** → Add something new
+* **Read** → Retrieve something
+* **Update** → Modify something
+* **Delete** → Remove something
 
-Think of CRUD as describing **what you want to do** with a resource.
+HTTP methods are commonly used to perform these CRUD operations through an API:
 
-HTTP methods are the standard way we express these operations over the web.
-
-The mapping looks like this:
-
-| CRUD operation | HTTP method | Example |
-| --- | --- | --- |
-| Create | `POST` | Create a new model config |
-| Read | `GET` | Read model details |
-| Update (replace) | `PUT` | Replace model config |
-| Update (partial) | `PATCH` | Change one setting |
-| Delete | `DELETE` | Remove a model |
-
-> **Mental model**
->
-> **CRUD describes the operation. HTTP methods are how that operation is communicated to the server.**
+| CRUD Operation       | HTTP Method | Example                          |
+| -------------------- | ----------- | -------------------------------- |
+| **Create**           | `POST`      | Create a new model configuration |
+| **Read**             | `GET`       | Retrieve model details           |
+| **Update (replace)** | `PUT`       | Replace a model configuration    |
+| **Update (partial)** | `PATCH`     | Change one model setting         |
+| **Delete**           | `DELETE`    | Remove a model                   |
 
 For example:
 
 ```text
-POST   /models      -> Create a model
-GET    /models/42   -> Read model 42
-PUT    /models/42   -> Replace model 42
-PATCH  /models/42   -> Update part of model 42
-DELETE /models/42   -> Delete model 42
+POST   /models       → Create a model
+GET    /models/42    → Read model 42
+PUT    /models/42    → Replace model 42
+PATCH  /models/42    → Update part of model 42
+DELETE /models/42    → Delete model 42
 ```
 
-You'll see CRUD in almost every backend interview because most APIs are built around these four operations.
+> **Mental Model**
+>
+> **CRUD describes what operation you want to perform.**
+>
+> **HTTP methods describe how you communicate that operation to the server.**
 
-
-## CRUD Mapping
-
-HTTP methods often map to **CRUD** operations:
-
-| CRUD operation | HTTP method | Example |
-| --- | --- | --- |
-| Create | `POST` | Create a new model config |
-| Read | `GET` | Read model details |
-| Update / replace | `PUT` | Replace model config |
-| Update / modify | `PATCH` | Change one setting |
-| Delete | `DELETE` | Remove a model |
-
-You will see this mapping often when designing APIs.
+CRUD is a fundamental backend concept because most APIs ultimately involve creating, reading, updating, or deleting resources.
 
 ## Common Misconceptions
 
