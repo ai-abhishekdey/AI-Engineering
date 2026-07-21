@@ -214,51 +214,8 @@ HTTPS is like putting that message inside a sealed envelope.
 <img src="img/chaper3_02.png" width="800" height="600">
 </p>
 
-### HTTP Flow
 
-```text
-Browser
-   |
-   |  Plain HTTP request
-   v
-Network
-   |
-   |  Data may be readable in transit
-   v
-Server
-   |
-   |  Plain HTTP response
-   v
-Browser
-```
-
-### HTTPS Flow
-
-```text
-Browser
-   |
-   |  1. Encrypt request
-   v
-Encrypted data over network
-   |
-   |  2. Decrypt request
-   v
-Server
-   |
-   |  3. Process request
-   v
-Server
-   |
-   |  4. Encrypt response
-   v
-Encrypted data over network
-   |
-   |  5. Decrypt response
-   v
-Browser
-```
-
-With HTTPS, the HTTP message still exists, but it is protected while travelling over the network.
+- With HTTPS, the HTTP message still exists, but it is protected while travelling over the network.
 
 ```text
 HTTPS = HTTP + TLS (Transport Layer Security) encryption
