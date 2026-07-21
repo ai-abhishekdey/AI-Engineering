@@ -71,11 +71,12 @@ DELETE /users/42
 >
 > The method is the **verb** of the request.
 
+
 ## 2. URL
 
-The **URL (Uniform Resource Locator)** tells the client **where** to send the request.
+The **URL (Uniform Resource Locator)** tells the client **where to send the request**.
 
-Think of a URL as the complete address needed to reach a specific resource on a server.
+Think of a URL as the complete address used to reach a specific resource or functionality on a server.
 
 Example:
 
@@ -83,58 +84,158 @@ Example:
 https://api.company.com/predict
 ```
 
-Let's break it down:
+Breaking it down:
 
 ```text
 https://api.company.com/predict
-|       |               |
-|       |               |-- Path / Endpoint
-|       |
-|       |-- Domain Name
-|
-|-- Protocol
+│       │   │       │    │
+│       │   │       │    └── Path / Endpoint
+│       │   │       └─────── Top-Level Domain (TLD)
+│       │   └─────────────── Main Domain
+│       └─────────────────── Subdomain
+└─────────────────────────── Protocol
 ```
 
 ### Protocol
 
-The **protocol** defines **how** the client and server communicate.
-
-Examples:
-
-- `http://`
-- `https://`
-
-In production, APIs almost always use **HTTPS** because it encrypts data during transmission.
-
-### Domain Name
-
-A **domain name** is the human-readable name of a server on the internet.
+The **protocol** defines how the client and server communicate.
 
 Examples:
 
 ```text
-google.com
-openai.com
-api.company.com
+http://
+https://
 ```
 
-Computers actually communicate using **IP addresses** such as:
+Production APIs almost always use **HTTPS** because it protects data while it travels between the client and server.
+
+---
+
+### Domain Name
+
+A **domain name** is the human-readable name used to identify a server or service on the Internet.
+
+Consider:
+
+```text
+www.company.com
+```
+
+It can be broken down as:
+
+```text
+www  .  company  .  com
+ │         │          │
+ │         │          └── Top-Level Domain (TLD)
+ │         │
+ │         └───────────── Main / Second-Level Domain
+ │
+ └─────────────────────── Subdomain
+```
+
+* `com` → Top-Level Domain (TLD)
+* `company` → Main or second-level domain
+* `www` → Subdomain
+
+`www` traditionally stands for **World Wide Web**, but it is not mandatory.
+
+For example:
+
+```text
+www.company.com
+company.com
+```
+
+Both can be configured to serve the company's website.
+
+Different subdomains can also be used for different services:
+
+```text
+www.company.com       → Website
+api.company.com       → API
+docs.company.com      → Documentation
+```
+
+Here, `www`, `api`, and `docs` are all **subdomains**.
+
+> **Mental Model**
+>
+> `company.com` = Main domain
+> `www.company.com` = Website subdomain
+> `api.company.com` = API subdomain
+
+---
+
+### Domain Name and IP Address
+
+Computers ultimately communicate using **IP addresses**, such as:
 
 ```text
 142.250.183.46
 ```
 
-A **DNS (Domain Name System)** converts the domain name into the corresponding IP address so the request reaches the correct server.
+Remembering IP addresses would be inconvenient, so we use human-readable domain names instead.
 
-> **Mental model**
+A system called **DNS (Domain Name System)** translates the domain name into its corresponding IP address.
+
+```text
+api.company.com
+       │
+       ▼
+      DNS
+       │
+       ▼
+IP Address
+       │
+       ▼
+Server
+```
+
+> **Analogy**
 >
-> A domain name is like a person's name in your phone contacts.
-> An IP address is like their phone number.
-> DNS is the contact list that looks up the number for you.
+> A **domain name** is like a person's name in your phone contacts.
+>
+> An **IP address** is their phone number.
+>
+> **DNS** is the contact list that finds the phone number for you.
 
-### Path (Endpoint)
+---
 
-The **path**, often called an **API endpoint**, identifies the specific resource or functionality on the server.
+### URL vs Domain Name
+
+A **domain name is only one part of a URL**.
+
+For example:
+
+```text
+https://api.company.com/predict
+└───────────┬────────────────┘
+            URL
+
+        api.company.com
+        └──────┬──────┘
+           Domain Name
+```
+
+| Domain Name                       | URL                                                |
+| --------------------------------- | -------------------------------------------------- |
+| Identifies a server or service    | Complete address of a resource                     |
+| `api.company.com`                 | `https://api.company.com/predict`                  |
+| Does not include protocol or path | Can include protocol, domain, path, and parameters |
+
+> **Mental Model**
+>
+> **URL = Complete Address**
+>
+> **Domain Name = Server/Service Address**
+>
+> **Path = Specific Resource or Functionality**
+
+---
+
+### Path / Endpoint
+
+The **path** identifies a specific resource or functionality available on the server.
 
 Examples:
 
@@ -146,9 +247,7 @@ Examples:
 /login
 ```
 
-The same server can expose many different endpoints.
-
-For example:
+The same domain can expose many different API endpoints:
 
 ```text
 https://api.company.com/models
@@ -156,23 +255,19 @@ https://api.company.com/predict
 https://api.company.com/login
 ```
 
-All three requests go to the **same server** (`api.company.com`), but each endpoint performs a different task.
+All requests go to the same API domain:
 
-### URL vs Domain Name
+```text
+api.company.com
+```
 
-These two terms are often confused.
+but the **path tells the application what resource or functionality the client wants to access**.
 
-| Domain Name | URL |
-| --- | --- |
-| Identifies the server | Identifies the complete resource |
-| Example: `api.company.com` | Example: `https://api.company.com/predict` |
-| Does not include protocol or endpoint | Includes protocol, domain, and path |
-
-A URL contains several parts, and the **domain name is only one of them**.
+---
 
 ### Path Parameters
 
-Path parameters identify a specific resource.
+Path parameters identify a **specific resource**.
 
 ```text
 GET /users/42
@@ -181,12 +276,30 @@ GET /models/resnet50
 
 Here:
 
-- `42` identifies a particular user.
-- `resnet50` identifies a specific model.
+```text
+42         → Specific user
+resnet50   → Specific model
+```
+
+For example:
+
+```text
+/users/42
+```
+
+can be understood as:
+
+> Give me the user whose ID is `42`.
+
+---
 
 ### Query Parameters
 
-Query parameters provide additional options without changing the resource itself.
+Query parameters provide **additional options, filters, or controls** for a request.
+
+They appear after `?` in the URL.
+
+Example:
 
 ```text
 GET /models?type=vision&limit=10
@@ -194,8 +307,35 @@ GET /models?type=vision&limit=10
 
 Here:
 
-- `type=vision` filters the results.
-- `limit=10` limits the number of returned models.
+```text
+type=vision   → Return only vision models
+limit=10      → Return at most 10 results
+```
+
+Multiple query parameters are separated using `&`.
+
+> **Mental Model**
+>
+> **Path Parameter → Which specific resource?**
+>
+> **Query Parameter → How should I filter or customize the result?**
+
+For example:
+
+```text
+GET /models/resnet50?version=2
+```
+
+```text
+/models/resnet50
+        │
+        └── Specific resource
+
+version=2
+    │
+    └── Additional option
+```
+
 
 ## 3. Headers
 
