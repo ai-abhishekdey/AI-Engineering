@@ -158,4 +158,4 @@ In this chapter, we answered:
 
 Next, we will look at how a user's request actually reaches your AI application.
 
-That begins with **Chapter 02: How the Internet Works**.
+That begins with **Chapter 02: How does a request reach the AI model?**.
