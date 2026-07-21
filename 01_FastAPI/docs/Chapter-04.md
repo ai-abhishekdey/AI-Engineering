@@ -73,7 +73,9 @@ DELETE /users/42
 
 ## 2. URL
 
-The **URL** tells the server where the request should go.
+The **URL (Uniform Resource Locator)** tells the client **where** to send the request.
+
+Think of a URL as the complete address needed to reach a specific resource on a server.
 
 Example:
 
@@ -81,19 +83,60 @@ Example:
 https://api.company.com/predict
 ```
 
-Breakdown:
+Let's break it down:
 
 ```text
 https://api.company.com/predict
 |       |               |
-|       |               |-- Path / endpoint
+|       |               |-- Path / Endpoint
 |       |
-|       |-- Server / domain
+|       |-- Domain Name
 |
 |-- Protocol
 ```
 
-Different paths usually represent different resources or actions:
+### Protocol
+
+The **protocol** defines **how** the client and server communicate.
+
+Examples:
+
+- `http://`
+- `https://`
+
+In production, APIs almost always use **HTTPS** because it encrypts data during transmission.
+
+### Domain Name
+
+A **domain name** is the human-readable name of a server on the internet.
+
+Examples:
+
+```text
+google.com
+openai.com
+api.company.com
+```
+
+Computers actually communicate using **IP addresses** such as:
+
+```text
+142.250.183.46
+```
+
+A **DNS (Domain Name System)** converts the domain name into the corresponding IP address so the request reaches the correct server.
+
+> **Mental model**
+>
+> A domain name is like a person's name in your phone contacts.
+> An IP address is like their phone number.
+> DNS is the contact list that looks up the number for you.
+
+### Path (Endpoint)
+
+The **path**, often called an **API endpoint**, identifies the specific resource or functionality on the server.
+
+Examples:
 
 ```text
 /predict
@@ -102,6 +145,30 @@ Different paths usually represent different resources or actions:
 /health
 /login
 ```
+
+The same server can expose many different endpoints.
+
+For example:
+
+```text
+https://api.company.com/models
+https://api.company.com/predict
+https://api.company.com/login
+```
+
+All three requests go to the **same server** (`api.company.com`), but each endpoint performs a different task.
+
+### URL vs Domain Name
+
+These two terms are often confused.
+
+| Domain Name | URL |
+| --- | --- |
+| Identifies the server | Identifies the complete resource |
+| Example: `api.company.com` | Example: `https://api.company.com/predict` |
+| Does not include protocol or endpoint | Includes protocol, domain, and path |
+
+A URL contains several parts, and the **domain name is only one of them**.
 
 ### Path Parameters
 
@@ -112,11 +179,14 @@ GET /users/42
 GET /models/resnet50
 ```
 
-Here, `42` and `resnet50` are part of the path.
+Here:
+
+- `42` identifies a particular user.
+- `resnet50` identifies a specific model.
 
 ### Query Parameters
 
-Query parameters provide extra options.
+Query parameters provide additional options without changing the resource itself.
 
 ```text
 GET /models?type=vision&limit=10
@@ -124,8 +194,8 @@ GET /models?type=vision&limit=10
 
 Here:
 
-- `type=vision` filters the results,
-- `limit=10` controls how many results are returned.
+- `type=vision` filters the results.
+- `limit=10` limits the number of returned models.
 
 ## 3. Headers
 
