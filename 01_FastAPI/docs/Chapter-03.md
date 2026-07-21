@@ -336,4 +336,4 @@ In production, applications are usually exposed through **HTTPS** to protect use
 
 Now that we understand HTTP communication, the next question is:
 
-> **How do we build an API endpoint that receives a request and returns a response?**
+> **What exactly is inside an HTTP request?**
